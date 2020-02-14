@@ -28,7 +28,7 @@ with open('../data/passingevents.csv') as csv_file:
 
 width_height = 0.64762
 
-for write_match in range(1, 38):
+for write_match in range(1, 39):
     write_team = 'Huskies'
     # write_team = 'Opponent'
 
@@ -129,34 +129,33 @@ for write_match in range(1, 38):
             dis = dis - radius[a] - radius[b]
 
         if dis > 0:
-            theta = math.atan2(ey - sy, ex - sx)
-            new_sx = sx + math.cos(theta) * aa
-            new_sy = sy + math.sin(theta) * ab
-            new_ex = ex - math.cos(theta) * ba
-            new_ey = ey - math.sin(theta) * bb
-
             if times <= 2:
                 alpha = 0.15
                 width = 0.3
             elif times <= 3:
                 alpha = 0.25
-                width = 0.6
+                width = 0.7
             elif times <= 5:
                 alpha = 0.45
-                width = 0.9
+                width = 1.5
             elif times <= 10:
                 alpha = 0.65
-                width = 1.2
+                width = 3.5
             elif times <= 20:
                 alpha = 0.85
-                width = 1.5
+                width = 6.0
             else:
                 alpha = 0.95
-                width = 2.0
+                width = 9.0
+
+            theta = math.atan2(ey - sy, ex - sx)
+            new_sx = sx + math.cos(theta) * (aa + width * 0.15)
+            new_sy = sy + math.sin(theta) * (ab + width * 0.15)
+            new_ex = ex - math.cos(theta) * (ba + width * 0.15)
+            new_ey = ey - math.sin(theta) * (bb + width * 0.15)
 
             sp.arrow(new_sx, new_sy, new_ex - new_sx, new_ey - new_sy,
                      length_includes_head=True, head_width=1, head_length=2, fc='black', ec='black', alpha=alpha, linewidth=width)
-
 
     plt.savefig('../pics/pic' + str(write_match) + '_Huskies.png');
     plt.show()
