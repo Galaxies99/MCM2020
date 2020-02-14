@@ -1,4 +1,4 @@
-Player,DeDuelTotal,DeDuelTotal_Score,DefendRate,Duel_Score,Touch,Touch_Score,Clearance,Clearance_Score,Defend_Score
+Name,Ground Defending Duel (Total Counts),Ground Defending Duel Score (Total Counts),Ground Defending Duel (Successful Rate),Ground Defending Duel Score (Successful Rate),Block Shot Counts,Block Shot Score,Clearance Counts,Clearance Score,Defending Score
 Huskies_G1,5,40.175438596491226,0.19999999999999996,40.0,0,40.0,17,49.44444444444444,41
 Huskies_F1,88,54.73684210526316,0.3522727272727273,68.68393234672305,2,45.0,11,46.111111111111114,58
 Huskies_D1,189,72.4561403508772,0.36507936507936506,71.09634551495017,24,100.0,108,100.0,80

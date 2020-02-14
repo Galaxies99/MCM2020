@@ -111,15 +111,20 @@ for name in dict.keys():
                                   0.2 * onedict['Clearance_Score'] + 0.1 * onedict['Touch_Score'])
     dict[name] = onedict
 
-for name in dict.keys():
-    onedict = dict.get(name)
-
 list = []
-headers=['Player', 'DeDuelTotal', 'DeDuelTotal_Score', 'DefendRate', 'Duel_Score', 'Touch', 'Touch_Score', 'Clearance', 'Clearance_Score', 'Defend_Score']
-for key in dict.keys():
-    list.append(dict[key])
+headers = ["Name", "Ground Defending Duel (Total Counts)",
+           "Ground Defending Duel Score (Total Counts)",
+           "Ground Defending Duel (Successful Rate)",
+           "Ground Defending Duel Score (Successful Rate)",
+           "Block Shot Counts", "Block Shot Score",
+           "Clearance Counts", "Clearance Score", "Defending Score"]
 
-with open('../data/Player_defend_score.csv', 'w', newline='')as f:
-    f_csv = csv.DictWriter(f, headers)
-    f_csv.writeheader()
-    f_csv.writerows(list)
+with open('../data/Player_defending_data.csv', 'w', newline='') as csv_file:
+    writer = csv.writer(csv_file, dialect='excel')
+    writer.writerow(headers)
+    for key in dict:
+        onedict = dict[key]
+        row = [key, onedict['DeDuelTotal'], onedict['DeDuelTotal_Score'], onedict['DefendRate'],
+               onedict['Duel_Score'], onedict['Touch'], onedict['Touch_Score'],
+               onedict['Clearance'], onedict['Clearance_Score'], onedict['Defend_Score']]
+        writer.writerow(row)

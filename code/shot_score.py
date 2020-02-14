@@ -72,8 +72,10 @@ for key in shot_score:
     elif key.find('F') != -1:
         shot_score[key].append(score[7] * 0.3 + score[8] * 0.4 + score[9] * 0.3)
 
-headers = ['Player', 'Shots on', 'Shots blocked', 'Shots total', 'Free kick shots on', 'Free kick shots total', 'Shots on rate', 'Free kick shots on rate', 'Shots total Score', 'Shots accuracy Score', 'Free kick accuracy Score', 'Shot Score']
-with open('../data/Player_shotting_data.csv', 'w', newline='') as csv_file:
+headers = ['Name', 'On-Target Shots', 'Blocked Shots', 'Total Shots', 'On-Target Free Kick Shots',
+           'Total Free Kick Shots', 'Shots Accuracy', 'Free Kick Shots Accuracy',
+           'Total Shot Score', 'Shot Accuracy Score', 'Free Kick Accuracy Score', 'Shot Score']
+with open('../data/Player_shot_data.csv', 'w', newline='') as csv_file:
     csv_writer = csv.writer(csv_file, dialect='excel')
     csv_writer.writerow(headers)
     for key in shot_score:

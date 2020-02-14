@@ -72,7 +72,7 @@ for key in pass_score:
     if score[1] < 100:
         pass_score[key][8] = pass_score[key][8] / 2 + 40
 
-headers = ['Player', 'Successful Pass', 'Total Pass', 'Accuracy', 'Total Smart Pass', 'Smart Pass Rate', 'Accuracy score', 'Total Pass Score', 'Smart Pass Rate Score', 'Pass score']
+headers = ['Name', 'Successful Pass', 'Total Pass', 'Accuracy', 'Total Smart Pass', 'Smart Pass Rate', 'Accuracy score', 'Total Pass Score', 'Smart Pass Rate Score', 'Pass score']
 
 with open('../data/Player_passing_data.csv', 'w', newline='') as csv_file:
     csv_writer = csv.writer(csv_file, dialect='excel')

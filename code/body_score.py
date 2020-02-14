@@ -116,7 +116,8 @@ for i in range(0, 30):
 
 with open('../data/Player_body_data.csv', 'w', newline='') as csv_file:
     writer = csv.writer(csv_file)
-    writer.writerow(["Name", "Air_score", "Attack_score", "Loose_score", "Speed_score", "Total_score"])
+    writer.writerow(["Name", "Air Duel Score", "Ground Attacking Duel Score",
+                     "Ground Loose Ball Duel Score", "Accelaration Score", "Body Score"])
     for i in name.keys():
         id = name[i]
         writer.writerow([i, airscore[id], attscore[id], looscore[id], speedscore[id], score[id]])
