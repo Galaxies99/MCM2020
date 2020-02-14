@@ -3,26 +3,25 @@ from matplotlib.patches import Circle, Ellipse
 import csv
 import math
 
-
 average_position_data = []
 passing_accuracy_data = []
 passing_data = []
 
 with open('../data/plotting_data.csv') as csv_file:
     csv_reader = csv.reader(csv_file)
-    average_position_data_header = next(csv_reader)
+    next(csv_reader)
     for row in csv_reader:
         average_position_data.append(row)
 
 with open('../data/passing_accuracy.csv') as csv_file:
     csv_reader = csv.reader(csv_file)
-    passing_accuracy_data_header = next(csv_reader)
+    next(csv_reader)
     for row in csv_reader:
         passing_accuracy_data.append(row)
 
 with open('../data/passingevents.csv') as csv_file:
     csv_reader = csv.reader(csv_file)
-    passing_data_header = next(csv_reader)
+    next(csv_reader)
     for row in csv_reader:
         passing_data.append(row)
 
@@ -69,8 +68,9 @@ for write_match in range(1, 39):
         else:
             alpha = 0.9
 
-        sp.add_patch(Ellipse(xy=(float(item[2]), float(item[3])), width=radius[item[1]]*width_height, height=radius[item[1]], alpha=alpha, color='r'));
-
+        sp.add_patch(Ellipse(xy=(float(item[2]), float(item[3])),
+                             width=radius[item[1]] * width_height, height=radius[item[1]],
+                             alpha=alpha, color='r'))
 
     passing_network = {}
 
@@ -87,12 +87,11 @@ for write_match in range(1, 39):
         else:
             passing_network[key] = passing_network[key] + 1
 
-
     for key in passing_network:
         assert key.find('.') is not None
         pos = key.find('.')
         a = key[0:pos]
-        b = key[pos+1:]
+        b = key[pos + 1:]
         times = passing_network[key]
 
         if location_dict.get(a) is None or location_dict.get(b) is None:
@@ -155,7 +154,8 @@ for write_match in range(1, 39):
             new_ey = ey - math.sin(theta) * (bb + width * 0.15)
 
             sp.arrow(new_sx, new_sy, new_ex - new_sx, new_ey - new_sy,
-                     length_includes_head=True, head_width=1, head_length=2, fc='black', ec='black', alpha=alpha, linewidth=width)
+                     length_includes_head=True, head_width=1, head_length=2, fc='black', ec='black', alpha=alpha,
+                     linewidth=width)
 
     plt.savefig('../pics/pic' + str(write_match) + '_Huskies.png');
     plt.show()
