@@ -43,6 +43,7 @@ struct Player {
   void output_cout() const {
     if(valid) {
       team.output_cout();
+      cout << '_';
       if(pos == GK) cout << "G";
       if(pos == DF) cout << "D";
       if(pos == MF) cout << "M";
@@ -64,6 +65,9 @@ struct Player {
            (a.team == b.team && a.pos == b.pos && a.id > b.id) || 
            (a.team == b.team && a.pos == b.pos && a.id == b.id && a.valid > b.valid);
   }
+  friend bool operator != (Player a, Player b) {
+    return ! (a == b);
+  }
 };
 
 struct Coordinates {
@@ -76,6 +80,13 @@ struct Coordinates {
   
   void output_cout() const {
     if(valid) cout << x << ',' << y;
+  }
+  
+  friend Coordinates operator + (Coordinates a, Coordinates b) {
+    return Coordinates(a.x + b.x, a.y + b.y);
+  }
+  friend Coordinates operator / (Coordinates a, double b) {
+    return Coordinates(a.x / b, a.y / b);
   }
 };
 
@@ -101,7 +112,7 @@ struct Event {
     pori.output_cout();
     cout << ',';
     pdst.output_cout();
-    cout << half << "H," << tm << ',';
+    cout << ',' << half << "H," << tm << ',';
     cout << evName[type] << ',' << subevName[subtype] << ',';
     eori.output_cout(); 
     cout << ',';
