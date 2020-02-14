@@ -1,8 +1,8 @@
 # include <bits/stdc++.h>
-# include "headfiles/events_reader.hpp"
-# include "headfiles/notations.hpp"
-# include "headfiles/tools.hpp"
-# include "headfiles/events.hpp"
+# include "../headfiles/events_reader.hpp"
+# include "../headfiles/notations.hpp"
+# include "../headfiles/tools.hpp"
+# include "../headfiles/events.hpp"
 
 using namespace std;
 
@@ -19,7 +19,7 @@ int main() {
     }
   }
   
-  freopen("data/passing_accuracy.csv", "w", stdout);
+  freopen("../data/passing_accuracy.csv", "w", stdout);
   cout << "MatchID,Player,SuccessPass,TotalPass,Accuracy\n";
   for (int i = 1; i <= 38; ++ i) {
     for (map <Player, pair <int, int> > :: iterator it = acc[i].begin(); it != acc[i].end(); ++ it) {

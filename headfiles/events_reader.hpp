@@ -16,7 +16,7 @@ struct evReader {
   char str[1010];
   
   evReader() {
-    fp = fopen("data/fullevents.csv", "r");
+    fp = fopen("../data/fullevents.csv", "r");
   }
   
   vector <Event> parse() {
