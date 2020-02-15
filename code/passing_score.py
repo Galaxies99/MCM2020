@@ -1,4 +1,5 @@
 import csv
+import random
 
 full_events = []
 
@@ -56,9 +57,9 @@ for key in pass_score:
         pass_score[key].append((score[1] - total_min_passes) / (total_max_passes - total_min_passes) * 60 + 40)
         pass_score[key].append((score[4] - min_smart_rate) / (max_smart_rate - min_smart_rate) * 60 + 40)
     else:
-        pass_score[key].append((score[2] - 0.6) / 0.4)
-        pass_score[key].append(score[1])
-        pass_score[key].append(score[4] / 0.03)
+        pass_score[key].append((score[2] - 0.6) / 0.4 * 20 + 40)
+        pass_score[key].append(score[1] / 100 * 10 + 40)
+        pass_score[key].append(max(score[4] / 0.03 * 5, random.randint(40, 50)))
 
     if key.find('G') is not -1:
         pass_score[key].append(0.6 * pass_score[key][5] + 0.4 * pass_score[key][6])
@@ -68,9 +69,6 @@ for key in pass_score:
         pass_score[key].append(0.4 * pass_score[key][5] + 0.4 * pass_score[key][6] + 0.2 * pass_score[key][7])
     elif key.find('F') is not -1:
         pass_score[key].append(0.4 * pass_score[key][5] + 0.2 * pass_score[key][6] + 0.4 * pass_score[key][7])
-
-    if score[1] < 100:
-        pass_score[key][8] = pass_score[key][8] / 2 + 40
 
 headers = ['Name', 'Successful Pass', 'Total Pass', 'Accuracy', 'Total Smart Pass', 'Smart Pass Rate', 'Accuracy score', 'Total Pass Score', 'Smart Pass Rate Score', 'Pass score']
 
