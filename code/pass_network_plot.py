@@ -1,16 +1,8 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-import csv
+import csvreader
 import numpy as np
-
-
-def add_coordinates(loc, s, x, y):
-    if loc.get(s) is None:
-        loc[s] = [x, y, 1]
-    else:
-        lst = loc[s]
-        loc[s] = [lst[0] + x, lst[1] + y, lst[2] + 1]
-    return None
+import passing_network_match as pnm
 
 
 def add_passing_data(ps, s, sp, tp):
@@ -43,23 +35,10 @@ def set_points(graph, nodes, nloc, ps_data, node_color):
 length_factor = 1.05
 width_factor = 0.68
 
-full_events = []
-with open('../data/fullevents.csv') as csv_file:
-    csv_reader = csv.reader(csv_file)
-    next(csv_reader)
-    for row in csv_reader:
-        full_events.append(row)
-
-passing_events = []
-with open('../data/passingevents.csv') as csv_file:
-    csv_reader = csv.reader(csv_file)
-    next(csv_reader)
-    for row in csv_reader:
-        passing_events.append(row)
-
+full_events = csvreader.csv_reader_without_headers('../data/fullevents.csv')
+passing_events = csvreader.csv_reader_without_headers('../data/passingevents.csv')
 
 write_team = 'Huskies'
-# write_team = 'Opponent1'
 
 for write_match in range(1, 39):
     location = {}
@@ -76,18 +55,18 @@ for write_match in range(1, 39):
         name = (item[2].split('_'))[1]
 
         if item[6].find('Pass') is not -1:
-            add_coordinates(location, name, float(item[8]), float(item[9]))
+            pnm.add_coordinates(location, name, float(item[8]), float(item[9]))
             add_passing_data(passing_data, name, 0, 1)
             if item[3] is not '' and item[3] is not item[2]:
-                add_coordinates(location, (item[3].split('_'))[1], float(item[10]), float(item[11]))
+                pnm.add_coordinates(location, (item[3].split('_'))[1], float(item[10]), float(item[11]))
                 add_passing_data(passing_data, name, 1, 0)
         elif item[6].find('Save') is not -1 or item[6].find('Goalkeeper') is not -1:
-            add_coordinates(location, name, 0, 50)
+            pnm.add_coordinates(location, name, 0, 50)
         elif item[6].find('Substitution') is not -1:
             substitution_list.append((item[3].split('_'))[1])
         elif item[6].find('Duel') is not -1 or item[6].find('Others') is not -1 or item[6].find('Foul') is not -1 or \
                 item[6].find('Offside') is not -1 or item[6].find('Shot') is not -1:
-            add_coordinates(location, name, float(item[8]), float(item[9]))
+            pnm.add_coordinates(location, name, float(item[8]), float(item[9]))
 
     for item in passing_events:
         if int(item[0]) is not write_match:
@@ -160,4 +139,3 @@ for write_match in range(1, 39):
     plt.ylim(0, 68)
     plt.savefig('../pics/match' + str(write_match) + '.png')
     plt.show()
-

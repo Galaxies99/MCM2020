@@ -1,15 +1,11 @@
-import csv
+import csvreader
 import numpy as np
 import matplotlib.pyplot as plt
 
 header = []
 player_data = []
 
-with open('../data/Player_full_data.csv') as csv_file:
-    csv_reader = csv.reader(csv_file)
-    header = next(csv_reader)
-    for row in csv_reader:
-        player_data.append(row)
+header, player_data = csvreader.csv_reader_with_headers('../data/Player_full_data.csv')
 
 for player in player_data:
     plt.style.use('ggplot')
