@@ -59,13 +59,15 @@ def main(write_match):
         if item[6].find('Pass') is not -1:
             add_coordinates(location, name, float(item[8]), float(item[9]))
             if item[3] is not '' and item[3] != item[2]:
-                add_coordinates(location, (item[3].split('_'))[1], float(item[10]), float(item[11]))
+                add_coordinates(location, (item[3].split('_'))[1], 
+                                float(item[10]), float(item[11]))
         elif item[6].find('Save') is not -1 or item[6].find('Goalkeeper') is not -1:
             add_coordinates(location, name, 0, 50)
         elif item[6].find('Substitution') is not -1:
             substitution_list.append((item[3].split('_'))[1])
         elif item[6].find('Duel') is not -1 or item[6].find('Others') is not -1 or \
-                item[6].find('Foul') is not -1 or item[6].find('Offside') is not -1 or item[6].find('Shot') is not -1:
+             item[6].find('Foul') is not -1 or item[6].find('Offside') is not -1 or \
+             item[6].find('Shot') is not -1:
             add_coordinates(location, name, float(item[8]), float(item[9]))
     # Compute the player's average location.
     for key in location:
@@ -107,7 +109,8 @@ def main(write_match):
         key = name1 + '.' + name2
         dT[key] += 1
         # Use euclid distance.
-        dis = euclid_distance(float(item[7]), float(item[8]), float(item[9]), float(item[10]))
+        dis = euclid_distance(float(item[7]), float(item[8]), \
+                              float(item[9]), float(item[10]))
         if item[6].find('Head') != -1:  # Head pass
             add_counts(head_pass, key, dis)
         elif item[6].find('Hand') != -1:  # Hand pass
@@ -124,10 +127,10 @@ def main(write_match):
             add_counts(smart_pass, key, dis)
     # Compute the average passing distance.
     dP = {}
-    kdP = {'Head pass': 0.8, 'Hand pass': 0.6, 'High pass': 1.3, 'Simple pass': 1.0, 'Launch': 0.7,
-           'Cross': 1.2, 'Smart pass': 1.1}
-    kdP_total = kdP['Head pass'] + kdP['Hand pass'] + kdP['High pass'] + kdP['Simple pass'] + \
-                kdP['Cross'] + kdP['Smart pass'] + kdP['Launch']
+    kdP = {'Head pass': 0.8, 'Hand pass': 0.6, 'High pass': 1.3, 'Simple pass': 1.0, 
+           'Launch': 0.7, 'Cross': 1.2, 'Smart pass': 1.1}
+    kdP_total = kdP['Head pass'] + kdP['Hand pass'] + kdP['High pass'] + \
+                kdP['Simple pass'] + kdP['Cross'] + kdP['Smart pass'] + kdP['Launch']
     for name1 in name_list:
         for name2 in name_list:
             if name1 == name2:
@@ -174,7 +177,8 @@ def main(write_match):
             w[key] = math.exp(w[key])
     # Write weight result to an file.
     headers = ['From', 'To', 'w']
-    with open('../data/networkdata/match' + str(write_match) + '_w.csv', 'w', newline='') as csv_file:
+    file_name = '../data/networkdata/match' + str(write_match) + '_w.csv'
+    with open(file_name, 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file, dialect='excel')
         csv_writer.writerow(headers)
         for key in w:
@@ -213,7 +217,8 @@ def main(write_match):
             c[name] = 0
     # Write result to an file.
     headers = ['Name', 'Clustering Coefficient']
-    with open('../data/networkdata/match' + str(write_match) + '_c.csv', 'w', newline='') as csv_file:
+    file_name = '../data/networkdata/match' + str(write_match) + '_c.csv' 
+    with open(file_name, 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file, dialect='excel')
         csv_writer.writerow(headers)
         for key in c:

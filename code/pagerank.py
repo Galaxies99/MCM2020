@@ -22,5 +22,6 @@ class Graph():
         for i in range(epoch_num):
             for node in self.PR_map:
                 self.PR_map[node] = (1 - d) + d * sum(
-                    [self.PR_map[temp_node[0]] * temp_node[1] for temp_node in self.linked_node_map[node]])  # 原始版公式
+                    [self.PR_map[temp_node[0]] * temp_node[1] 
+                     for temp_node in self.linked_node_map[node]])
         return self.PR_map
